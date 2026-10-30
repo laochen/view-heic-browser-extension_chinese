@@ -2,6 +2,7 @@
   1. 增加了web codecs 的videoDecoder硬件解码支持
   2. 增加了打包成独立的js模块功能
      打包方式：
+     ```bash
         npm install
         npm run build:lib
      目标文件目录: dist/*.js
@@ -42,11 +43,12 @@
              '/webcool/html/js/events-bootstrap.js'
              '/webcool/html/js/vendor/view-heic.js'
          ];
-  3. 插件式用法（跟原版一样流程)
+     ```
+  4. 插件式用法（跟原版一样流程)
         npm install
         npm run build
 
-  4. 联系方式 chenxy.china@gmail.com
+  5. 联系方式 chenxy.china@gmail.com
 
 
 ## 如下是原版原始信息###################
