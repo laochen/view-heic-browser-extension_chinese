@@ -1,0 +1,35 @@
+{
+  "name": "view-heic",
+  "description": "View HEIC Image as Normal Image in Your Browser",
+  "private": true,
+  "version": "1.0.10",
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "compile": "tsc --noEmit",
+    "postinstall": "wxt prepare",
+    "postversion": "git push origin HEAD && git push --tags origin HEAD && pnpm zip && open .output",
+    "test:server": "node test-server.js",
+    "test:open": "open http://127.0.0.1:8080/test-improved.html",
+    "dev:open": "open http://127.0.0.1:8080/",
+    "dev:test": "npm run build && npm run test:server",
+    "build:lib": "node scripts/build-lib.mjs",
+    "dev:lib": "node scripts/build-lib.mjs --watch"
+  },
+  "dependencies": {
+    "build": "^0.1.4",
+    "heic-decode": "^2.1.0",
+    "lodash-es": "^4.18.1"
+  },
+  "devDependencies": {
+    "@types/heic-decode": "^2.0.0",
+    "@types/lodash-es": "^4.17.12",
+    "typescript": "^6.0.3",
+    "wxt": "^0.6.4"
+  }
+}

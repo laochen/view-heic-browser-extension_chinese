@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🖼️ HEIC扩展测试 - 改进版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            animation: {
+              "pulse-slow": "pulse 2s ease-in-out infinite",
+              "bounce-gentle": "bounce 1s ease-in-out infinite",
+            },
+          },
+        },
+      }
+    </script>
+  </head>
+  <body class="bg-gray-50 font-sans">
+    <!-- 头部状态区域 -->
+    <div class="max-w-6xl mx-auto p-6">
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6 text-center">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">🖼️ View HEIC 扩展测试</h1>
+        <p class="text-gray-600 mb-4">测试改进版HEIC图片转换功能</p>
+        <div id="extension-status" class="flex items-center justify-center space-x-2">
+          <span id="status-text" class="text-gray-700">检测扩展状态中...</span>
+          <span id="status-indicator" class="px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+            检测中
+          </span>
+        </div>
+      </div>
+
+      <!-- 主要改进点 -->
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4 pb-2 border-b border-blue-200">🚀 主要改进点</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="space-y-3">
+            <div class="flex items-start space-x-3">
+              <span class="text-green-500 font-bold">✅</span>
+              <span class="text-gray-700">升级到 heic-to@1.2.1 库（基于最新 libheif 1.20.1）</span>
+            </div>
+            <div class="flex items-start space-x-3">
+              <span class="text-green-500 font-bold">✅</span>
+              <span class="text-gray-700">修复内存泄漏问题，添加资源清理</span>
+            </div>
+            <div class="flex items-start space-x-3">
+              <span class="text-green-500 font-bold">✅</span>
+              <span class="text-gray-700">避免重复处理同一图片</span>
+            </div>
+            <div class="flex items-start space-x-3">
+              <span class="text-green-500 font-bold">✅</span>
+              <span class="text-gray-700">限制并发处理数量，提升性能</span>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-start space-x-3">
+              <span class="text-green-500 font-bold">✅</span>
+              <span class="text-gray-700">增强错误处理和用户提示</span>
+            </div>
+            <div class="flex items-start space-x-3">
+              <span class="text-green-500 font-bold">✅</span>
+              <span class="text-gray-700">添加50MB文件大小限制</span>
+            </div>
+            <div class="flex items-start space-x-3">
+              <span class="text-green-500 font-bold">✅</span>
+              <span class="text-gray-700">更精准的DOM监听机制</span>
+            </div>
+            <div class="flex items-start space-x-3">
+              <span class="text-green-500 font-bold">✅</span>
+              <span class="text-gray-700">模块化代码架构</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEIC图片转换测试 -->
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4 pb-2 border-b border-blue-200">📷 HEIC图片转换测试</h3>
+        <p class="text-gray-600 mb-6">测试页面加载时的HEIC图片处理（使用本地文件，避免CORS问题）：</p>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6" id="static-images">
+          <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <img src="./example.heic" alt="大文件HEIC测试" class="w-full h-48 object-cover" />
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-1">大文件测试</h4>
+              <p class="text-sm text-gray-600 mb-1">文件: example.heic (1.1MB)</p>
+              <span class="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs rounded">
+                ✅ 测试大文件转换性能
+              </span>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <img src="./small-test.heic" alt="标准HEIC测试" class="w-full h-48 object-cover" />
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-1">标准HEIC文件</h4>
+              <p class="text-sm text-gray-600 mb-1">文件: small-test.heic (873KB)</p>
+              <span class="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs rounded">
+                ✅ Nokia标准测试文件
+              </span>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <img src="./medium-test.heic" alt="小文件HEIC测试" class="w-full h-48 object-cover" />
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-1">小文件测试</h4>
+              <p class="text-sm text-gray-600 mb-1">文件: medium-test.heic (219KB)</p>
+              <span class="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs rounded">
+                ✅ 测试小文件快速转换
+              </span>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <img src="./corrupted-test.heic" alt="损坏文件测试" class="w-full h-48 object-cover" />
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-1">错误处理测试</h4>
+              <p class="text-sm text-gray-600 mb-1">文件: corrupted-test.heic (78B)</p>
+              <span class="inline-block px-2 py-1 bg-red-100 text-red-800 text-xs rounded"> ❌ 测试格式错误处理 </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 本地文件测试优势说明 -->
+        <div class="mt-6 p-4 bg-green-50 rounded-lg">
+          <h4 class="font-semibold text-green-800 mb-2">✅ 本地文件测试优势：</h4>
+          <div class="grid md:grid-cols-2 gap-2 text-sm text-green-700">
+            <div>• <strong>无CORS问题</strong>：所有文件都通过本地HTTP服务器访问</div>
+            <div>• <strong>稳定可靠</strong>：不依赖外部网络，测试结果一致</div>
+            <div>• <strong>全面覆盖</strong>：包含不同大小和格式的测试场景</div>
+            <div>• <strong>离线测试</strong>：完全本地化，开发时更方便</div>
+          </div>
+        </div>
+
+        <!-- 测试文件说明 -->
+        <div class="mt-4 p-4 bg-yellow-50 rounded-lg">
+          <h4 class="font-semibold text-yellow-800 mb-2">📊 测试文件说明：</h4>
+          <div class="grid md:grid-cols-2 gap-2 text-sm text-yellow-700">
+            <div>• <strong>大文件</strong> (1.1MB)：测试性能和内存管理</div>
+            <div>• <strong>标准文件</strong> (873KB)：Nokia官方测试文件，标准HEIC格式</div>
+            <div>• <strong>小文件</strong> (219KB)：测试快速转换和并发处理</div>
+            <div>• <strong>损坏文件</strong> (78B)：测试错误处理和用户反馈</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 动态加载测试 -->
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4 pb-2 border-b border-blue-200">🔄 动态加载测试</h3>
+        <p class="text-gray-600 mb-4">测试DOM变化监听和动态图片处理：</p>
+
+        <div class="p-4 bg-blue-50 rounded-lg">
+          <button
+            class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+            onclick="addDynamicImage()"
+          >
+            添加动态HEIC图片
+          </button>
+          <div id="dynamic-images" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-4"></div>
+        </div>
+      </div>
+
+      <!-- 转换统计 -->
+      <div class="bg-white rounded-lg shadow-sm p-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4 pb-2 border-b border-blue-200">📊 转换统计</h3>
+        <div class="grid md:grid-cols-3 gap-4" id="conversion-stats">
+          <div class="text-center p-4 bg-green-50 rounded-lg">
+            <div class="text-2xl font-bold text-green-600" id="success-count">0</div>
+            <div class="text-sm text-green-800">成功转换</div>
+          </div>
+          <div class="text-center p-4 bg-red-50 rounded-lg">
+            <div class="text-2xl font-bold text-red-600" id="failure-count">0</div>
+            <div class="text-sm text-red-800">转换失败</div>
+          </div>
+          <div class="text-center p-4 bg-blue-50 rounded-lg">
+            <div class="text-2xl font-bold text-blue-600" id="total-count">0</div>
+            <div class="text-sm text-blue-800">总计处理</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 自定义样式用于HEIC处理状态 -->
+    <style>
+      /* HEIC图片处理状态样式 */
+      .heic-processing {
+        position: relative;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+      }
+
+      .heic-processing::after {
+        content: "🔄 转换中...";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        white-space: nowrap;
+        z-index: 1000;
+        pointer-events: none;
+      }
+
+      .heic-converted {
+        opacity: 1;
+        transition: opacity 0.3s ease;
+      }
+
+      .heic-error {
+        position: relative;
+        border: 2px dashed #ef4444 !important;
+        opacity: 0.8;
+        filter: grayscale(50%);
+        cursor: pointer;
+      }
+
+      .heic-error::after {
+        content: "❌ 转换失败 - 点击查看原图";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(239, 68, 68, 0.9);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        white-space: nowrap;
+        z-index: 1000;
+        pointer-events: none;
+      }
+
+      .heic-error:hover {
+        opacity: 1;
+        filter: grayscale(0%);
+      }
+    </style>
+
+    <script>
+      let imageCount = 0
+
+      // 检测扩展状态
+      function checkExtensionStatus() {
+        const statusText = document.getElementById("status-text")
+        const statusIndicator = document.getElementById("status-indicator")
+
+        // 通过检查是否有HEIC处理相关的类名来判断扩展是否工作
+        setTimeout(() => {
+          const heicImages = document.querySelectorAll('img[src$=".heic"], img[src$=".HEIC"]')
+          let hasProcessed = false
+
+          heicImages.forEach((img) => {
+            if (
+              img.classList.contains("heic-converted") ||
+              img.classList.contains("heic-processing") ||
+              img.classList.contains("heic-error")
+            ) {
+              hasProcessed = true
+            }
+          })
+
+          if (hasProcessed) {
+            statusText.textContent = "扩展运行正常"
+            statusIndicator.textContent = "正常"
+            statusIndicator.className = "px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800"
+          } else {
+            statusText.textContent = "未检测到扩展活动"
+            statusIndicator.textContent = "未检测到"
+            statusIndicator.className = "px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800"
+          }
+        }, 2000)
+      }
+
+      // 添加动态图片
+      function addDynamicImage() {
+        imageCount++
+        const container = document.getElementById("dynamic-images")
+        const dynamicItem = document.createElement("div")
+        dynamicItem.className = "bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+
+        // 测试用例：循环使用不同的本地测试文件
+        const testCases = [
+          {
+            src: "./example.heic",
+            name: "大文件测试",
+            description: "1.1MB文件转换测试",
+          },
+          {
+            src: "./small-test.heic",
+            name: "标准文件测试",
+            description: "Nokia标准HEIC文件",
+          },
+          {
+            src: "./medium-test.heic",
+            name: "小文件测试",
+            description: "快速转换测试",
+          },
+          {
+            src: "./corrupted-test.heic",
+            name: "错误处理测试",
+            description: "损坏文件格式测试",
+          },
+        ]
+
+        const testCase = testCases[(imageCount - 1) % testCases.length]
+
+        dynamicItem.innerHTML = `
+                <img src="${testCase.src}" alt="动态HEIC图片 ${imageCount}" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h4 class="font-semibold text-gray-800 mb-1">动态图片 #${imageCount}</h4>
+                    <p class="text-sm text-gray-600 mb-1">类型: ${testCase.name}</p>
+                    <p class="text-sm text-gray-600 mb-2">${testCase.description}</p>
+                    <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
+                        添加时间: ${new Date().toLocaleTimeString()}
+                    </span>
+                </div>
+            `
+        container.appendChild(dynamicItem)
+
+        // 更新统计
+        updateStats()
+      }
+
+      // 更新转换统计
+      function updateStats() {
+        setTimeout(() => {
+          const allImages = document.querySelectorAll('img[src$=".heic"], img[src$=".HEIC"]')
+          const successImages = document.querySelectorAll("img.heic-converted")
+          const errorImages = document.querySelectorAll("img.heic-error")
+
+          document.getElementById("total-count").textContent = allImages.length
+          document.getElementById("success-count").textContent = successImages.length
+          document.getElementById("failure-count").textContent = errorImages.length
+        }, 1000)
+      }
+
+      // 页面加载完成后执行
+      document.addEventListener("DOMContentLoaded", () => {
+        checkExtensionStatus()
+        updateStats()
+
+        // 定期更新统计信息
+        setInterval(updateStats, 3000)
+      })
+    </script>
+  </body>
+</html>
